@@ -1,0 +1,26 @@
+f=open("1.txt","w")
+f.write("ahah")
+f.close()
+print("名字是%s"%f.name)
+print("打开模式是%s"%f.mode)
+print("关闭状态时 %s"%f.closed)
+
+import os
+a=os.listdir('./')
+print(a)
+
+b=os.getcwd()
+print(b)
+os.mkdir("hahh")
+os.chdir("../")
+c=os.getcwd()
+print(c)
+f=open("2.txt",'w')
+f.write("xixi")
+f.close()
+#import os
+f=open("2.txt",'r')
+a=f.read()
+print(a)
+c=os.getcwd()
+print(c)
