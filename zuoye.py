@@ -140,3 +140,71 @@ jianguo.bc()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Cat:
+    def __init__(self,name,age,height):
+        self.name=name
+        self.age=age
+        self.height=height
+    def run(self):
+        print("%s摇摇晃晃的流眼泪，一边流眼泪一边跑"%self.name)
+    def eat(self):
+        print("%s摇摇晃晃的流眼泪，一遍流眼泪一遍吃"%self.name)
+    def sleep(self):
+        print("%s摇摇晃晃的流眼泪，一边流眼泪一边睡"%self.name)
+    def __str__(self):
+        s="名字是："+self.name+"年龄是："+self.age+"身高是："+self.height
+        return s
+def bisha(n):
+    n.run()
+    n.sleep()
+    n.eat()
+
+huahua=Cat("花花","17","1米8")
+print(huahua)
+bisha(huahua)
+huahua.sleep()
+
+
+
+
+papa=Cat("露露","13","1米7")
+print(papa)
+bisha(papa)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
