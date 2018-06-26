@@ -1,0 +1,8 @@
+b = [i for i in range(1,5)]
+print(b)
+#以列表形式呈现
+a= (i for i in range(1,5))
+print(type(a))
+print(next(a))
+for i in a:
+    print(i)

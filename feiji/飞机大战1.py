@@ -15,15 +15,51 @@ class BasePlane(Base):
         self.bullet_list=[]#保存子弹引用
         self.bullet_remove=[]#保存待删除的子弹
         self.hit=False #表示没有击中不爆炸
-        self.bomb_list = []#保存爆炸效果图
+        self.bomb_list = []#保存英雄飞机爆炸效果图
         self.__create_image()#添加图片
         self.image_num=0#while true 增加次数效果延迟
         self.image_index=0#爆炸图片
+        #self.bomb1_list = []#保存敌机爆炸图片
+        #self.__dijibao=()
+        #self.bao1=False #表示没有击中敌机
+
     def __create_image(self):
-        self.bomb_list.append(pygame.image.load("./tupian/hero_blowup_n1.png"))
-        self.bomb_list.append(pygame.image.load("./tupian/hero_blowup_n2.png"))
-        self.bomb_list.append(pygame.image.load("./tupian/hero_blowup_n3.png"))
+        self.bomb_list.append(pygame.image.load("./tupian/enemy0_down3.png"))
+        self.bomb_list.append(pygame.image.load("./tupian/enemy0_down3.png"))
+        self.bomb_list.append(pygame.image.load("./tupian/enemy0_down3.png"))
         self.bomb_list.append(pygame.image.load("./tupian/hero_blowup_n4.png"))
+    '''
+    def __dijibao(self):
+        self.bomb1_list.append(pygame.image.load("./tupian/enemy0_down1.png"))
+        self.bomb1_list.append(pygame.image.load("./tupian/enemy0_down2.png"))
+        self.bomb1_list.append(pygame.image.load("./tupian/enemy0_down3.png"))
+        self.bomb1_list.append(pygame.image.load("./tupian/enemy0_down4.png"))
+    def xianshi(self):
+        if self.bao1==True:
+
+            self.screen.blit(self.bomb1_list[self.image_index],self.rect)
+            print("aaaaaaaaaaaaaaaaaaaaaa")
+
+            self.image_num+=1
+            if self.image_num==7:
+                self.image_index+=1
+                self.image_num = 0
+            if self.image_index > 3:
+                time.sleep(1)
+                exit()
+        else:
+            self.screen.blit(self.image,self.rect)
+        if len(self.bullet_list)>0:
+            for bullet in self.bullet_list:
+                bullet.display()
+                bullet.move()
+                if bullet.judge():
+                    self.bullet_remove.append(bullet)
+            if len(self.bullet_remove)>0:
+                for i in self.bullet_remove:
+                    self.bullet_list.remove(i)
+                del self.bullet_remove[:]
+    '''
     def display(self):
         if self.hit==True:
             self.screen.blit(self.bomb_list[self.image_index],self.rect)
@@ -46,6 +82,8 @@ class BasePlane(Base):
                 for i in self.bullet_remove:
                     self.bullet_list.remove(i)
                 del self.bullet_remove[:]
+    def bao(self):
+        self.bao1 = True
     def bomb(self):
         self.hit = True
 
@@ -97,6 +135,12 @@ class EnemyBullet(BaseBullet):
             return True#表示子弹飞出了屏幕
         else:
             return False
+    def bao(self):
+        if self.x == hero.x+hero.width or self.x == hero.y+hero.height:
+            return True
+        else:
+            return False
+
 class Bullet(BaseBullet):
     '''子弹的抽象类'''
     def __init__(self,screen,x,y):
@@ -157,11 +201,19 @@ def main():
         hero.display()
         enemy.move()
         enemy.display()
+        #enemy.xianshi()
         enemy.fire()
         clock.tick(60)
         if hero.rect.y <= 0:
             hero.rect.y = 500
         key_control(hero)
+        for i in enemy.bullet_list:
+            if hero.rect.y+124 >= i.y >= hero.rect.y and hero.rect.x+100 >= i.x >= hero.rect.x:
+                hero.bomb()
+        for i in hero.bullet_list:
+            if enemy.rect.y+100 >= i.y >= enemy.rect.y and enemy.rect.x+90 >= i.x >= enemy.rect.x:
+                enemy.bomb()
+
         #刷新显示
         pygame.display.update()
 
